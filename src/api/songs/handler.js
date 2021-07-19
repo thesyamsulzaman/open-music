@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const ClientError = require('../../exceptions/ClientError');
 
 class SongsHandler {
@@ -55,13 +54,23 @@ class SongsHandler {
     }
   }
 
+  // TODO: Exception Handler
   async getSongsHandler(request, h) {
-    const songs = await this._service.getSongs();
-
-    return {
-      status: 'success',
-      data: { songs },
-    };
+    try {
+      const songs = await this._service.getSongs();
+      return {
+        status: 'success',
+        data: { songs },
+      };
+    } catch (error) {
+      const response = h.response({
+        status: 'error',
+        message: 'Server kami error',
+      });
+      response.code(500);
+      console.error(error);
+      return response;
+    }
   }
 
   async getSongByIdHandler(request, h) {

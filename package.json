@@ -1,7 +1,7 @@
 {
   "name": "open-music",
   "version": "1.0.0",
-  "description": "OpenMusic RESTful Service",
+  "description": "OpenMusic RESTful Web Services",
   "main": "index.js",
   "scripts": {
     "prod": "NODE_ENV=production node ./src/server.js",
@@ -13,16 +13,12 @@
     "type": "git",
     "url": "git+https://github.com/thesyamsulzaman/open-music.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/thesyamsulzaman/open-music/issues"
   },
   "homepage": "https://github.com/thesyamsulzaman/open-music#readme",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",

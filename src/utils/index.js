@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 const convertSongToConciseModel = ({ id, title, performer }) => ({
   id,
   title,
