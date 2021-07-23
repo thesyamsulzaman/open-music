@@ -16,7 +16,6 @@ class SongsService {
   async addSong({ title, year, performer, genre, duration }) {
     const id = `song-${nanoid(18)}`;
     const insertedAt = new Date().toISOString();
-    const updatedAt = insertedAt;
 
     const query = {
       text:
@@ -58,7 +57,7 @@ class SongsService {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new InvariantError(`Lagu dengan id ${id} tidak ditemukan`);
+      throw new NotFoundError(`Lagu dengan id ${id} tidak ditemukan`);
     }
 
     return result.rows.map(converSongToPreciseModel)[0];

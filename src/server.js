@@ -1,15 +1,12 @@
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
-
-const songs = require('./api/songs');
-const SongsService = require('./services/postgres/SongsService');
-const SongsValidator = require('./validator/songs');
+const Jwt = require('@hapi/jwt');
+const plugins = require('./plugins');
 
 const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
-  const songsService = new SongsService();
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
@@ -20,12 +17,28 @@ const init = async () => {
     },
   });
 
-  await server.register({
-    plugin: songs,
-    options: {
-      service: songsService,
-      validator: SongsValidator,
+  // Registrasi plugin external
+  await server.register([
+    {
+      plugin: Jwt,
     },
+  ]);
+
+  // mendefinisikan strategi autentikasi
+  server.auth.strategy('openmusic_jwt', 'jwt', {
+    keys: process.env.ACCESS_TOKEN_KEY,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      maxAgeSec: process.env.ACCESS_TOKEN_AGE,
+    },
+    validate: (artifacts) => ({
+      isValid: true,
+      credentials: {
+        id: artifacts.decoded.payload.id,
+      },
+    }),
   });
 
   server.ext('onPreResponse', (request, h) => {
@@ -40,10 +53,17 @@ const init = async () => {
       return newResponse;
     }
 
+    if (response instanceof Error) {
+      console.error(response);
+    }
+
     return response.continue || response;
   });
 
+  await server.register(plugins);
+
   await server.start();
+
   console.log(`Server berjalan pada ${server.info.uri}`);
 };
 
