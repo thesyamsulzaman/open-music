@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 

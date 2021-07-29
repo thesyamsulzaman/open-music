@@ -13,7 +13,9 @@ class SongsService {
     this._pool = new Pool();
   }
 
-  async addSong({ title, year, performer, genre, duration }) {
+  async addSong({
+    title, year, performer, genre, duration
+  }) {
     const id = `song-${nanoid(18)}`;
     const insertedAt = new Date().toISOString();
 
@@ -63,7 +65,9 @@ class SongsService {
     return result.rows.map(converSongToPreciseModel)[0];
   }
 
-  async editSongById(id, { title, year, performer, genre, duration }) {
+  async editSongById(id, {
+    title, year, performer, genre, duration
+  }) {
     const updatedAt = new Date().toISOString();
     const query = {
       text:
