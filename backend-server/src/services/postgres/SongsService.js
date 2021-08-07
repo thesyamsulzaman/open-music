@@ -15,7 +15,7 @@ class SongsService {
   }
 
   async addSong({
-    title, year, performer, genre, duration,
+    title, year, performer, genre, duration
   }) {
     const id = `song-${nanoid(18)}`;
     const insertedAt = new Date().toISOString();
@@ -55,7 +55,7 @@ class SongsService {
       return JSON.parse(results);
     } catch (error) {
       const results = await this._pool.query(
-        'SELECT id, title, performer FROM songs',
+        'SELECT id, title, performer FROM songs'
       );
 
       const mappedResult = results.rows.map(convertSongToConciseModel);
@@ -81,11 +81,7 @@ class SongsService {
   }
 
   async editSongById(id, {
-<<<<<<< HEAD:backend-server/src/services/postgres/SongsService.js
-    title, year, performer, genre, duration,
-=======
     title, year, performer, genre, duration
->>>>>>> main:src/services/postgres/SongsService.js
   }) {
     const updatedAt = new Date().toISOString();
     const query = {
