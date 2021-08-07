@@ -81,7 +81,11 @@ class SongsService {
   }
 
   async editSongById(id, {
+<<<<<<< HEAD:backend-server/src/services/postgres/SongsService.js
     title, year, performer, genre, duration,
+=======
+    title, year, performer, genre, duration
+>>>>>>> main:src/services/postgres/SongsService.js
   }) {
     const updatedAt = new Date().toISOString();
     const query = {
