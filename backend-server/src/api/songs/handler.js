@@ -14,11 +14,7 @@ class SongsHandler {
     this._validator.validateSongPayload(request.payload);
 
     const {
-<<<<<<< HEAD:backend-server/src/api/songs/handler.js
       title, year, performer, genre, duration,
-=======
-      title, year, performer, genre, duration
->>>>>>> main:src/api/songs/handler.js
     } = request.payload;
 
     const songId = await this._service.addSong({
